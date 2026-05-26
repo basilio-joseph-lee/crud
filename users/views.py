@@ -16,7 +16,7 @@ class userServices(generics.ListCreateAPIView):
 class updateDeleteUsers(generics.RetrieveUpdateDestroyAPIView):
     queryset = UserModel.objects.all()
     serializer_class = userSerializer
-    parser_classes = [MultiPartParser, FormParser, JSONParser]  
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     def partial_update(self, request, *args, **kwargs):
         instance = self.get_object()
