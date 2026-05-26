@@ -9,11 +9,11 @@ class AppointmentSerializer(serializers.ModelSerializer):
             "appointment_id",
             "guest",
             "booking",
-            "service_type",
             "room",
+            "assigned_staff",
+            "service_type",
             "scheduled_at",
             "status",
-            "assigned_staff",
             "notes",
             "created_at",
         ]

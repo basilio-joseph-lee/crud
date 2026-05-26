@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class UserModel(models.Model):
     ROLE_CHOICES = [
         ('admin', 'Admin'),
@@ -12,7 +13,7 @@ class UserModel(models.Model):
     email = models.EmailField(max_length=150, unique=True)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES)
     password = models.CharField(max_length=255)
-    avatar_url = models.TextField(null=True, blank=True)
+    avatar_url = models.ImageField(upload_to='avatars/', null=True, blank=True)  # changed from TextField to ImageField
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

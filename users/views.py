@@ -1,17 +1,23 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.parsers import MultiPartParser, FormParser  # added for file uploads
 from django.contrib.auth.hashers import check_password
 from .models import UserModel
 from .serializers import userSerializer
 
+
 class userServices(generics.ListCreateAPIView):
     queryset = UserModel.objects.all()
     serializer_class = userSerializer
+    parser_classes = [MultiPartParser, FormParser]  # accept multipart/form-data
+
 
 class updateDeleteUsers(generics.RetrieveUpdateDestroyAPIView):
     queryset = UserModel.objects.all()
     serializer_class = userSerializer
+    parser_classes = [MultiPartParser, FormParser]  # accept multipart/form-data
+
 
 class LoginView(APIView):
     def post(self, request):
@@ -34,5 +40,5 @@ class LoginView(APIView):
 
         return Response({
             'message': 'Login successful',
-            'user': userSerializer(user).data
+            'user': userSerializer(user, context={'request': request}).data  # context needed for full image URL
         }, status=status.HTTP_200_OK)

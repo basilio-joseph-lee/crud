@@ -2,7 +2,10 @@ from rest_framework import serializers
 from .models import UserModel
 from django.contrib.auth.hashers import make_password
 
+
 class userSerializer(serializers.ModelSerializer):
+    avatar_url = serializers.ImageField(use_url=True, required=False, allow_null=True)  # returns full URL in response
+
     class Meta:
         model = UserModel
         fields = '__all__'

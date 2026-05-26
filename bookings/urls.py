@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import BookingListCreateView, BookingRetrieveUpdateDestroyView
+from .views import BookingListCreateView, BookingRetrieveUpdateDestroyView, BookingMonthlyAnalyticsView
 
 urlpatterns = [
     path("bookings/", BookingListCreateView.as_view(), name="booking-list-create"),
@@ -8,4 +8,5 @@ urlpatterns = [
         BookingRetrieveUpdateDestroyView.as_view(),
         name="booking-detail",
     ),
+    path("bookings/analytics/monthly", BookingMonthlyAnalyticsView.as_view()),
 ]

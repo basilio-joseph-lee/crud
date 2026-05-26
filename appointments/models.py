@@ -3,15 +3,19 @@ from django.db import models
 
 class AppointmentModel(models.Model):
     class ServiceType(models.TextChoices):
-        CHECK_IN = "Check-in", "Check-in"
-        CHECK_OUT = "Check-out", "Check-out"
-        SPA_SESSION = "Spa Session", "Spa Session"
-        DINING = "Dining", "Dining"
-        OTHER = "Other", "Other"
+        CHECK_IN       = "Check-in",       "Check-in"
+        CHECK_OUT      = "Check-out",      "Check-out"
+        SPA_SESSION    = "Spa Session",    "Spa Session"
+        DINING         = "Dining",         "Dining"
+        HOUSEKEEPING   = "Housekeeping",   "Housekeeping"
+        LAUNDRY        = "Laundry",        "Laundry"
+        MAINTENANCE    = "Maintenance",    "Maintenance"
+        TRANSPORTATION = "Transportation", "Transportation"
+        OTHER          = "Other",          "Other"
 
     class Status(models.TextChoices):
         CONFIRMED = "Confirmed", "Confirmed"
-        PENDING = "Pending", "Pending"
+        PENDING   = "Pending",   "Pending"
         CANCELLED = "Cancelled", "Cancelled"
         COMPLETED = "Completed", "Completed"
 
@@ -28,7 +32,6 @@ class AppointmentModel(models.Model):
         blank=True,
         related_name="appointments",
     )
-    service_type = models.CharField(max_length=20, choices=ServiceType.choices)
     room = models.ForeignKey(
         "rooms.RoomModel",
         on_delete=models.SET_NULL,
@@ -36,6 +39,7 @@ class AppointmentModel(models.Model):
         blank=True,
         related_name="appointments",
     )
+    service_type = models.CharField(max_length=20, choices=ServiceType.choices)
     scheduled_at = models.DateTimeField()
     status = models.CharField(
         max_length=20,

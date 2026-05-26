@@ -8,6 +8,12 @@ class Booking(models.Model):
         CANCELLED = "Cancelled", "Cancelled"
         COMPLETED = "Completed", "Completed"
 
+    class RoomStatus(models.TextChoices):
+        AVAILABLE = 'Available', 'Available'
+        OCCUPIED = 'Occupied', 'Occupied'
+        HOUSEKEEPING = 'Housekeeping', 'Housekeeping'
+        MAINTENANCE = 'Maintenance', 'Maintenance'
+
     booking_id = models.AutoField(primary_key=True)
     guest = models.ForeignKey(
         "guests.GuestModel",
@@ -19,13 +25,18 @@ class Booking(models.Model):
         on_delete=models.CASCADE,
         related_name="bookings",
     )
-    check_in_date = models.DateField()
-    check_out_date = models.DateField()
     status = models.CharField(
         max_length=20,
         choices=Status.choices,
         default=Status.PENDING,
     )
+    room_status = models.CharField(
+        max_length=12,
+        choices=RoomStatus.choices,
+        default=RoomStatus.AVAILABLE,
+    )
+    check_in_date = models.DateField()
+    check_out_date = models.DateField()
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
     notes = models.TextField(blank=True, null=True)
     created_by = models.ForeignKey(
